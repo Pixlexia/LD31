@@ -45,4 +45,8 @@ public class PlayerControl : MonoBehaviour {
 		
 		rigidbody2D.velocity = move.normalized * speed * Time.deltaTime;
 	}
+
+	public void Die(){
+		Debug.Log ("die");
+	}
 }

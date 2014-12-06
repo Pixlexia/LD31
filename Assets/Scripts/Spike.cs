@@ -3,19 +3,7 @@ using System.Collections;
 
 public class Spike : MonoBehaviour {
 
-	public bool activated;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			Activate();		
-		}
-	}
+	public bool activated, selfActivating;
 
 	public void Switch(bool b){
 		if (b)
@@ -36,14 +24,14 @@ public class Spike : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "Player" && selfActivating) {
 			Activate();		
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col){
 		if (col.gameObject.tag == "Player") {
-			Deactivate();		
+			col.gameObject.GetComponent<PlayerControl>().Die();
 		}
 	}
 }
