@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
+	public GameObject dieParticle1, dieParticle2;
+
 	public float speed;
 	public Vector2 move;
 
@@ -47,6 +49,8 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public void Die(){
-		Debug.Log ("die");
+		renderer.enabled = false;
+		Instantiate (dieParticle1, transform.position, Quaternion.identity);
+		Instantiate (dieParticle2, transform.position, Quaternion.identity);
 	}
 }

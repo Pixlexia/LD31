@@ -4,6 +4,8 @@ using System.Collections;
 public class SwitchHold : Switch {
 
 	void OnTriggerEnter2D(Collider2D col){
+		state = true;
+
 		if (col.gameObject.tag == "Player") {
 			foreach(GameObject go in target){
 				if(switchType == TargetType.spike)
@@ -15,6 +17,8 @@ public class SwitchHold : Switch {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
+		state = false;
+
 		if (col.gameObject.tag == "Player") {
 			foreach(GameObject go in target){
 				if(switchType == TargetType.spike)
