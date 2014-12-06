@@ -64,7 +64,8 @@ public class PlayerMaster : MonoBehaviour {
 	}
 	
 	void DisableCurrentCharControl(){
-
+		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = false;
+		
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = false;		
 
 		if(!characters[currentChar].GetComponent<FollowPlayer>().brokenFromGroup && !GetFollowing(currentChar).GetComponent<FollowPlayer>().brokenFromGroup)
@@ -73,7 +74,9 @@ public class PlayerMaster : MonoBehaviour {
 
 	void EnableCurrentCharControl(){
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = true;		
-		characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;		
+		characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;	
+		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = true;
+		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = true;
 	}
 
 	GameObject GetFollower(int i){

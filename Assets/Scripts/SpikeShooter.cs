@@ -13,8 +13,9 @@ public class SpikeShooter : MonoBehaviour {
 	}
 
 	void Update(){
+		atkCounter -= Time.deltaTime;
+
 		if (shooting) {
-			atkCounter -= Time.deltaTime;
 
 			if(atkCounter <= 0.00f)
 				Shoot ();
