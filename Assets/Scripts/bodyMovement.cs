@@ -7,17 +7,19 @@ public class bodyMovement : MonoBehaviour {
 	public GameObject body;
 	public float legDur, legMax, legMin;
 	public float bodyDur, bodyMax, bodyMin;
-	public GameObject moveScript;
+	public PlayerControl moveScript;
+	public FollowPlayer followScript;
 	// Use this for initialization
 	void Start () {
-	
+		moveScript = GetComponent<PlayerControl> ();
+		followScript = GetComponent<FollowPlayer> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
 		//IF PLAYER IS MOVING
-		if(moveScript.GetComponent<PlayerControl>().move.x != 0 || moveScript.GetComponent<PlayerControl>().move.y != 0)
+		if(followScript.isMoving || (moveScript.move.x != 0 || moveScript.move.y != 0))
 		{   
 
 			//LEG
