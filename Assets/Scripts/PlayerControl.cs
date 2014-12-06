@@ -49,10 +49,12 @@ public class PlayerControl : MonoBehaviour {
 	}
 
 	public void Die(){
-		foreach (Transform go in GetComponentsInChildren<Transform>())
-			go.gameObject.renderer.enabled = false;
+		if (dieParticle1 && dieParticle2) {
+			Instantiate (dieParticle1, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
+			Instantiate (dieParticle2, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
+		}
 
-		Instantiate (dieParticle1, transform.position, Quaternion.identity);
-		Instantiate (dieParticle2, transform.position, Quaternion.identity);
+//		foreach (Transform go in GetComponentsInChildren<Transform>())
+//			go.gameObject.renderer.enabled = false;
 	}
 }

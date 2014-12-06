@@ -10,8 +10,8 @@ public class SwitchButton : Switch {
 			foreach(GameObject go in target){
 				if(switchType == TargetType.spike)
 					go.GetComponent<Spike>().Switch(state);
-				//				else if(switchType == SwitchType.door)
-				//					go.GetComponent<Door>().Switch(state);
+				else if(switchType == TargetType.door)
+					go.GetComponent<Door>().Activate();
 			}
 		}
 	}

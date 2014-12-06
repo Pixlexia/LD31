@@ -3,6 +3,15 @@ using System.Collections;
 
 public class SwitchHold : Switch {
 
+	void OnTriggerStay2D(Collider2D col){
+		state = true;
+
+		foreach (GameObject go in target) {
+			if(switchType == TargetType.spikeshooter)
+				go.GetComponent<SpikeShooter>().Activate();
+		}
+	}
+	
 	void OnTriggerEnter2D(Collider2D col){
 		state = true;
 
@@ -10,8 +19,10 @@ public class SwitchHold : Switch {
 			foreach(GameObject go in target){
 				if(switchType == TargetType.spike)
 					go.GetComponent<Spike>().Activate();
-				//				else if(switchType == SwitchType.door)
-				//					go.GetComponent<Door>().Activate();
+				else if(switchType == TargetType.door)
+					go.GetComponent<Door>().Activate();
+				else if(switchType == TargetType.spikeshooter)
+					go.GetComponent<SpikeShooter>().Activate();
 			}
 		}
 	}
@@ -23,8 +34,8 @@ public class SwitchHold : Switch {
 			foreach(GameObject go in target){
 				if(switchType == TargetType.spike)
 					go.GetComponent<Spike>().Deactivate();
-				//				else if(switchType == SwitchType.door)
-				//					go.GetComponent<Door>().Dectivate();
+				else if(switchType == TargetType.spikeshooter)
+					go.GetComponent<SpikeShooter>().Deactivate();
 			}
 		}
 	}
