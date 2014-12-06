@@ -12,7 +12,7 @@ public class PlayerControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		Movement ();
+		Movement();
 	}
 
 	public void Movement2(){
