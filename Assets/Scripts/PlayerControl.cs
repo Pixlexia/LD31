@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class PlayerControl : MonoBehaviour {
-	public GameObject dieParticle1, dieParticle2;
 
 	public float speed;
 	public Vector2 move;
@@ -46,15 +45,5 @@ public class PlayerControl : MonoBehaviour {
 		}
 		
 		rigidbody2D.velocity = move.normalized * speed * Time.deltaTime;
-	}
-
-	public void Die(){
-		if (dieParticle1 && dieParticle2) {
-			Instantiate (dieParticle1, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
-			Instantiate (dieParticle2, transform.position + new Vector3(0,0.3f,0), Quaternion.identity);
-		}
-
-//		foreach (Transform go in GetComponentsInChildren<Transform>())
-//			go.gameObject.renderer.enabled = false;
 	}
 }

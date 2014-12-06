@@ -26,7 +26,7 @@ public class Spike : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Player" && selfActivating) {
 			Activate();		
-			col.gameObject.GetComponent<PlayerControl>().Die();
+			col.gameObject.GetComponent<Player>().Die();
 		}
 	}
 
