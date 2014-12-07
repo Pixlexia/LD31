@@ -5,6 +5,11 @@ public class Spike : MonoBehaviour {
 
 	public bool activated, selfActivating;
 
+	void Start(){
+		if (activated)
+			Activate ();
+	}
+
 	public void Switch(bool b){
 		if (b)
 			Activate ();
@@ -28,10 +33,5 @@ public class Spike : MonoBehaviour {
 			Activate();		
 			col.gameObject.GetComponent<Player>().Die();
 		}
-	}
-
-	void OnTriggerExit2D(Collider2D col){
-//		if (col.gameObject.tag == "Player") {
-//		}
 	}
 }

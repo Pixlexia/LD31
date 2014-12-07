@@ -9,6 +9,10 @@ public class PlayerControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	}
+
+	void Update(){
+		
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {

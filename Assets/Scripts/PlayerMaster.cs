@@ -8,6 +8,11 @@ public class PlayerMaster : MonoBehaviour {
 	public int currentChar;
 	public static bool hasKey;
 	public bool isFollowing;
+	public GameObject checkpoint;
+
+	// die timer
+	bool respawning;
+	float respawnTimer = 1, respawnCount;
 
 	// Use this for initialization
 	void Start () {
@@ -26,13 +31,36 @@ public class PlayerMaster : MonoBehaviour {
 			}
 			
 			if (Input.GetKeyDown (KeyCode.Space)) {
-				BreakFromGroup();		
+				BreakGroup();		
+			}
+		}
+
+		if (respawning) {
+			respawnCount -= Time.deltaTime;
+			if(respawnCount <= 0){
+				Respawn();
+				respawning = false;
 			}
 		}
 	}
 
 	public void Die(){
-		SwitchPrev ();
+		respawning = true;
+		respawnCount = respawnTimer;
+
+		characters [currentChar].GetComponent<PlayerControl> ().enabled = false;
+//		SwitchPrev ();
+	}
+
+	void Respawn(){
+		foreach (GameObject g in characters) {
+			g.GetComponent<Player>().Respawn(checkpoint.transform.position);
+		}
+		characters [currentChar].GetComponent<Player> ().RespawnController (checkpoint.transform.position);
+	}
+
+	public void SaveCheckpoint(GameObject g){
+		checkpoint = g;
 	}
 
 	void SwitchNext(){
@@ -58,10 +86,11 @@ public class PlayerMaster : MonoBehaviour {
 		SwitchPlayer();
 	}
 
-	void BreakFromGroup(){
+	void BreakGroup(){
 		isFollowing = !isFollowing;
 		foreach (GameObject go in characters) {
-			go.GetComponent<FollowPlayer>().enabled = isFollowing;
+			if(go.GetComponent<FollowPlayer>().isRescued)
+				go.GetComponent<FollowPlayer>().enabled = isFollowing;
 		}
 
 		if (isFollowing)
@@ -93,6 +122,8 @@ public class PlayerMaster : MonoBehaviour {
 		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = false;
 		
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = false;		
+		characters [currentChar].GetComponent<PlayerControl> ().move = Vector3.zero;		
+		characters [currentChar].GetComponent<FollowPlayer> ().isMoving = false;		
 
 		if(isFollowing)
 			characters [currentChar].GetComponent<FollowPlayer> ().enabled = true;
@@ -120,4 +151,6 @@ public class PlayerMaster : MonoBehaviour {
 		else
 			return characters[i - 1];
 	}
+
+
 }
