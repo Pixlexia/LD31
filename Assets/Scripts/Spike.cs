@@ -4,6 +4,12 @@ using System.Collections;
 public class Spike : MonoBehaviour {
 
 	public bool activated, selfActivating;
+
+	void Start(){
+		if (activated)
+			Activate ();
+	}
+
 	public void Switch(bool b){
 		if (b)
 			Activate ();

@@ -12,7 +12,7 @@ public class PlayerMaster : MonoBehaviour {
 
 	// die timer
 	bool respawning;
-	float respawnTimer = 3, respawnCount;
+	float respawnTimer = 1, respawnCount;
 
 	// Use this for initialization
 	void Start () {
@@ -36,9 +36,10 @@ public class PlayerMaster : MonoBehaviour {
 		}
 
 		if (respawning) {
-			respawnTimer -= Time.deltaTime;
-			if(respawnTimer <= 0){
+			respawnCount -= Time.deltaTime;
+			if(respawnCount <= 0){
 				Respawn();
+				respawning = false;
 			}
 		}
 	}
@@ -52,7 +53,10 @@ public class PlayerMaster : MonoBehaviour {
 	}
 
 	void Respawn(){
-		
+		foreach (GameObject g in characters) {
+			g.GetComponent<Player>().Respawn(checkpoint.transform.position);
+		}
+		characters [currentChar].GetComponent<Player> ().RespawnController (checkpoint.transform.position);
 	}
 
 	public void SaveCheckpoint(GameObject g){
@@ -118,6 +122,8 @@ public class PlayerMaster : MonoBehaviour {
 		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = false;
 		
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = false;		
+		characters [currentChar].GetComponent<PlayerControl> ().move = Vector3.zero;		
+		characters [currentChar].GetComponent<FollowPlayer> ().isMoving = false;		
 
 		if(isFollowing)
 			characters [currentChar].GetComponent<FollowPlayer> ().enabled = true;
