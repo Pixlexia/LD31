@@ -3,14 +3,32 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class DisplayTextAnim : MonoBehaviour {
+	public Color transparent;
 	public string text;
 	public float speed;
+	public float sentenceEnd;
 	public float pause;
+	public bool caps;
+
 	float animSpeed;
 	string tempText;
+	bool textDone;
 
 	void Start(){ 
+		textDone = false;
+
+		if(caps)
+		{
+			text = text.ToUpper();
+		}
 		StartCoroutine( AnimateText(text) ); 
+	}
+
+	void Update(){
+		if(textDone)
+		{
+			FadeOutText();
+		}
 	}
 	
 	IEnumerator AnimateText(string strComplete)
@@ -24,6 +42,11 @@ public class DisplayTextAnim : MonoBehaviour {
 				animSpeed = pause; 
 				i++;
 			}
+			else if(strComplete[i] == '.')
+			{
+				animSpeed = sentenceEnd;
+				tempText += strComplete[i++];
+			}
 			else
 			{
 				animSpeed = speed;
@@ -32,5 +55,11 @@ public class DisplayTextAnim : MonoBehaviour {
 			gameObject.transform.GetComponent<Text>().text = tempText;
 			yield return new WaitForSeconds(animSpeed); 
 		} 
+		yield return new WaitForSeconds(1f); 
+		textDone = true;
+	}
+
+	void FadeOutText(){
+		gameObject.transform.GetComponent<Text> ().color = Color.Lerp (gameObject.transform.GetComponent<Text> ().color,transparent, .1f);
 	}
 }
