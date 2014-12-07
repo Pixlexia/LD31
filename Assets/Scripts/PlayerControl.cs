@@ -8,7 +8,6 @@ public class PlayerControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
 	}
 	
 	// Update is called once per frame
@@ -21,6 +20,16 @@ public class PlayerControl : MonoBehaviour {
 		movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
 		rigidbody2D.AddForce (movement * speed * Time.deltaTime);
+	}
+
+	void OnTriggerEnter2D(Collider2D col){
+		if(col.gameObject.tag == "Stairs")
+			speed /= 2.5f;
+	}
+
+	void OnTriggerExit2D(Collider2D col){
+		if(col.gameObject.tag == "Stairs")
+			speed *= 2.5f;
 	}
 
 	public void Movement(){
