@@ -5,6 +5,7 @@ public class FollowPlayer : MonoBehaviour {
 	public bool brokenFromGroup;
 	public GameObject target;
 	public bool isMoving;
+	public bool isRescued;
 
 	// Use this for initialization
 	void Start () {

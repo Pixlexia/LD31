@@ -23,8 +23,8 @@ public class Player : MonoBehaviour {
 		if (!isAlive) {
 			respawnCounter -= Time.deltaTime;
 
-			if(respawnCounter <= 0)
-				Enable();
+//			if(respawnCounter <= 0)
+//				Enable();
 		}
 	}
 
@@ -48,14 +48,14 @@ public class Player : MonoBehaviour {
 		isAlive = false;
 		respawnCounter = respawnTime;
 
-//		gameObject.SetActive (false);
-
-		Disable ();
+		if (!GetComponent<PlayerControl> ().enabled)
+			Disable ();
 	}
 
-	void Disable(){
+	public void Disable(){
 		// Disable
 		collider2D.enabled = false;
+		GetComponent<PlayerControl> ().enabled = false;
 		GetComponent<bodyMovement> ().enabled = false;
 		SetSprites (false);
 	}
