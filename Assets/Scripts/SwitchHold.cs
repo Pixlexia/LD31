@@ -7,7 +7,7 @@ public class SwitchHold : Switch {
 		state = true;
 
 		foreach (GameObject go in target) {
-			if(switchType == TargetType.spikeshooter)
+			if(go.GetComponent<SpikeShooter>())
 				go.GetComponent<SpikeShooter>().Activate();
 		}
 	}
@@ -17,11 +17,11 @@ public class SwitchHold : Switch {
 
 		if (col.gameObject.tag == "Player") {
 			foreach(GameObject go in target){
-				if(switchType == TargetType.spike)
+				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Activate();
-				else if(switchType == TargetType.door)
+				else if(go.GetComponent<Door>())
 					go.GetComponent<Door>().Activate();
-				else if(switchType == TargetType.spikeshooter)
+				else if(go.GetComponent<SpikeShooter>())
 					go.GetComponent<SpikeShooter>().Activate();
 			}
 		}
@@ -32,9 +32,9 @@ public class SwitchHold : Switch {
 
 		if (col.gameObject.tag == "Player") {
 			foreach(GameObject go in target){
-				if(switchType == TargetType.spike)
+				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Deactivate();
-				else if(switchType == TargetType.spikeshooter)
+				else if(go.GetComponent<SpikeShooter>())
 					go.GetComponent<SpikeShooter>().Deactivate();
 			}
 		}

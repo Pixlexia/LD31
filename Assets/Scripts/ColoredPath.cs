@@ -17,4 +17,9 @@ public class ColoredPath : MonoBehaviour {
 			col.gameObject.GetComponent<Player> ().Die ();
 	}
 
+	public void Deactivate(){
+		GetComponent<SpriteRenderer> ().color = new Color (0.9f, 0.9f, 0.9f, 1);
+		collider2D.enabled = false;
+	}
+
 }

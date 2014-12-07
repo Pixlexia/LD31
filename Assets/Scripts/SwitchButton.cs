@@ -8,10 +8,12 @@ public class SwitchButton : Switch {
 
 		if (col.gameObject.tag == "Player") {
 			foreach(GameObject go in target){
-				if(switchType == TargetType.spike)
+				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Switch(state);
-				else if(switchType == TargetType.door)
+				else if(go.GetComponent<Door>())
 					go.GetComponent<Door>().Activate();
+				else if(go.GetComponent<ColoredPath>())
+					go.GetComponent<ColoredPath>().Deactivate();
 			}
 		}
 	}

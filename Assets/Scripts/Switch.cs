@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class Switch : MonoBehaviour {
-	public enum TargetType { spike, door, spikeshooter }
-	public TargetType switchType;
+//	public enum TargetType { spike, door, spikeshooter, coloredpath }
 	public Vector3 origPos;
 	public bool state = false;
 	Transform child1;

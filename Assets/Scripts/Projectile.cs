@@ -3,19 +3,20 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	public bool dir;
-	float yspeed;
+	public Vector3 dir;
+	float speed;
 
 	void Start(){
 		Destroy (gameObject, 3f);
-		yspeed = 20;
+		speed = 20;
 
-		if (!dir)
-			yspeed *= -1;
+		if (dir.x != 0) {
+			transform.Rotate(new Vector3(0,0,90));		
+		}
 	}
 
 	// Update is called once per frame
 	void Update () {
-		transform.position += new Vector3 (0, yspeed * Time.deltaTime, 0);
+		transform.position += new Vector3 (dir.x * speed * Time.deltaTime, dir.y * speed * Time.deltaTime, 0);
 	}
 }

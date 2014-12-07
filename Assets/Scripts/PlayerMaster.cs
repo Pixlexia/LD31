@@ -19,25 +19,10 @@ public class PlayerMaster : MonoBehaviour {
 	void Update () {
 		if (characters.Count > 1) {
 			if (Input.GetKeyDown (KeyCode.Q)) {
-				DisableCurrentCharControl();
-				
-				if(currentChar > 0)
-					currentChar--;
-				else
-					currentChar = characters.Count - 1;
-				
-				
-				SwitchPlayer();
+				SwitchNext();
 			}
 			else if(Input.GetKeyDown(KeyCode.E)){
-				DisableCurrentCharControl();
-				
-				if(currentChar < characters.Count - 1)
-					currentChar++;
-				else
-					currentChar = 0;
-				
-				SwitchPlayer();
+				SwitchPrev ();
 			}
 			
 			if (Input.GetKeyDown (KeyCode.Space)) {
@@ -46,14 +31,41 @@ public class PlayerMaster : MonoBehaviour {
 		}
 	}
 
+	public void Die(){
+		SwitchPrev ();
+	}
+
+	void SwitchNext(){
+		DisableCurrentCharControl();
+		
+		if(currentChar > 0)
+			currentChar--;
+		else
+			currentChar = characters.Count - 1;
+		
+		
+		SwitchPlayer();
+	}
+
+	void SwitchPrev(){
+		DisableCurrentCharControl();
+		
+		if(currentChar < characters.Count - 1)
+			currentChar++;
+		else
+			currentChar = 0;
+		
+		SwitchPlayer();
+	}
+
 	void BreakFromGroup(){
 		isFollowing = !isFollowing;
 		foreach (GameObject go in characters) {
 			go.GetComponent<FollowPlayer>().enabled = isFollowing;
 		}
 
-		if(isFollowing)
-			characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;	
+		if (isFollowing)
+			characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;
 	}
 
 	void BreakFromGroup2(){

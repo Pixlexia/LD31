@@ -2,8 +2,8 @@
 using System.Collections;
 
 public class SpikeShooter : MonoBehaviour {
-
-	public bool facingUp, shooting;
+	public Vector3 direction;
+	public bool shooting;
 	public GameObject spike;
 	public float atkDelay, atkCounter;
 
@@ -28,7 +28,7 @@ public class SpikeShooter : MonoBehaviour {
 
 	void Shoot(){
 		GameObject s = Instantiate (spike, transform.position, Quaternion.identity) as GameObject;
-		s.GetComponent<Projectile> ().dir = facingUp;
+		s.GetComponent<Projectile> ().dir = direction;
 
 		atkCounter = atkDelay;
 	}
