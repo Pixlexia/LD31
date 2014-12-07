@@ -85,6 +85,7 @@ public class PlayerMaster : MonoBehaviour {
 
 	void SwitchPlayer(){
 		cam.gameObject.GetComponent<LerpToTarget> ().target = characters [currentChar];
+		Debug.Log (characters [currentChar].name);
 		EnableCurrentCharControl ();
 	}
 	

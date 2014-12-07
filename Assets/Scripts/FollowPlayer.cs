@@ -23,7 +23,7 @@ public class FollowPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
 		if (Vector3.Distance (transform.position, target.transform.position) > 1.5f && Vector3.Distance (transform.position, target.transform.position) < 10){
-			transform.position = Vector3.Lerp (transform.position, target.transform.position, 0.05f);
+			transform.position = Vector3.Lerp (transform.position, target.transform.position, 0.04f);
 			isMoving = true;
 		}
 		else{

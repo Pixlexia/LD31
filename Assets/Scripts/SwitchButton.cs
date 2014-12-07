@@ -6,7 +6,7 @@ public class SwitchButton : Switch {
 	void OnTriggerEnter2D(Collider2D col){
 		state = !state;
 
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			foreach(GameObject go in target){
 				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Switch(state);

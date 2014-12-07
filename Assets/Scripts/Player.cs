@@ -78,7 +78,7 @@ public class Player : MonoBehaviour {
 	
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Deadly") {
-			Die ();
+//			Die ();
 		}
 		else if(col.gameObject.tag == "Key"){
 			PlayerMaster.hasKey = true;

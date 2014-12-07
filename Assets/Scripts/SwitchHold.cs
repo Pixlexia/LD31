@@ -15,7 +15,7 @@ public class SwitchHold : Switch {
 	void OnTriggerEnter2D(Collider2D col){
 		state = true;
 
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			foreach(GameObject go in target){
 				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Activate();
@@ -30,7 +30,7 @@ public class SwitchHold : Switch {
 	void OnTriggerExit2D(Collider2D col){
 		state = false;
 
-		if (col.gameObject.tag == "Player") {
+		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			foreach(GameObject go in target){
 				if(go.GetComponent<Spike>())
 					go.GetComponent<Spike>().Deactivate();

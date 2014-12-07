@@ -14,8 +14,5 @@ public class GameColors : MonoBehaviour {
 		colors.Add ("red", red);
 		colors.Add ("green", green);
 		colors.Add ("blue", blue);
-
-		Debug.Log (colors.Count);
-
 	}
 }
