@@ -15,7 +15,7 @@ public class BlinkEyes : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(Random.Range(0,10) == 3)
+		if(Random.Range(0,20) == 3)
 		{
 			if(isBlinking)
 				isBlinking = false;
