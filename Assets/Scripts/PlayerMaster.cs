@@ -6,10 +6,13 @@ public class PlayerMaster : MonoBehaviour {
 	public Camera cam;
 	public List<GameObject> characters;
 	public int currentChar;
+	public static bool hasKey;
+	public bool isFollowing;
 
 	// Use this for initialization
 	void Start () {
 		currentChar = 0;
+		isFollowing = true;
 	}
 	
 	// Update is called once per frame
@@ -44,6 +47,16 @@ public class PlayerMaster : MonoBehaviour {
 	}
 
 	void BreakFromGroup(){
+		isFollowing = !isFollowing;
+		foreach (GameObject go in characters) {
+			go.GetComponent<FollowPlayer>().enabled = isFollowing;
+		}
+
+		if(isFollowing)
+			characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;	
+	}
+
+	void BreakFromGroup2(){
 		if (!characters [currentChar].GetComponent<FollowPlayer> ().brokenFromGroup) {
 			int i = 0;
 			
@@ -68,14 +81,15 @@ public class PlayerMaster : MonoBehaviour {
 		
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = false;		
 
-		if(!characters[currentChar].GetComponent<FollowPlayer>().brokenFromGroup && !GetFollowing(currentChar).GetComponent<FollowPlayer>().brokenFromGroup)
+		if(isFollowing)
 			characters [currentChar].GetComponent<FollowPlayer> ().enabled = true;
+
+//		if(!characters[currentChar].GetComponent<FollowPlayer>().brokenFromGroup && !GetFollowing(currentChar).GetComponent<FollowPlayer>().brokenFromGroup)
 	}
 
 	void EnableCurrentCharControl(){
 		characters [currentChar].GetComponent<PlayerControl> ().enabled = true;		
 		characters [currentChar].GetComponent<FollowPlayer> ().enabled = false;	
-		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = true;
 		characters [currentChar].GetComponentInChildren<ArrowPoint> ().enabled = true;
 	}
 

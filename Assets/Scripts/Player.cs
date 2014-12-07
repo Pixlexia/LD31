@@ -13,8 +13,8 @@ public class Player : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () {
+		rigidbody2D.velocity = Vector2.Lerp (rigidbody2D.velocity, Vector2.zero, 0.2f);
 	}
 	
 	public void Die(){
@@ -34,6 +34,7 @@ public class Player : MonoBehaviour {
 			Die ();		
 		}
 		else if(col.gameObject.tag == "Key"){
+			PlayerMaster.hasKey = true;
 			Destroy (col.gameObject);
 			Instantiate(keyParticle, transform.position, Quaternion.identity);
 		}
