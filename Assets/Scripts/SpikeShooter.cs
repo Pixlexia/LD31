@@ -7,9 +7,13 @@ public class SpikeShooter : MonoBehaviour {
 	public GameObject spike;
 	public float atkDelay, atkCounter;
 
+	public bool origShooting;
+
 	void Start(){
 		if(atkDelay == 0)
 			atkDelay = 1;
+
+		origShooting = shooting;
 	}
 
 	void Update(){
@@ -30,10 +34,10 @@ public class SpikeShooter : MonoBehaviour {
 	}
 
 	public void Activate(){
-		shooting = true;
+		shooting = !origShooting;
 	}
 
 	public void Deactivate(){
-		shooting = false;
+		shooting = origShooting;
 	}
 }

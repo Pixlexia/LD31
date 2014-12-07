@@ -29,8 +29,6 @@ public class FollowPlayer : MonoBehaviour {
 		else{
 			isMoving = false;
 		}
-
-		rigidbody2D.velocity = Vector2.Lerp (rigidbody2D.velocity, Vector2.zero, 0.2f);
 	}
 
 	void OnEnable(){
