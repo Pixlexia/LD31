@@ -7,8 +7,10 @@ public class PlayerMaster : MonoBehaviour {
 	public List<GameObject> characters;
 	public int currentChar;
 	public static bool hasKey;
-	public bool isFollowing;
+	public bool isFollowing, gameover;
 	public GameObject checkpoint;
+
+	public GameObject raft;
 
 	// die timer
 	bool respawning;
@@ -23,24 +25,26 @@ public class PlayerMaster : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (characters.Count > 1) {
-			if (Input.GetKeyDown (KeyCode.Q)) {
-				SwitchNext();
-			}
-			else if(Input.GetKeyDown(KeyCode.E)){
-				SwitchPrev ();
+		if (!gameover) {
+			if (characters.Count > 1) {
+				if (Input.GetKeyDown (KeyCode.Q)) {
+					SwitchNext();
+				}
+				else if(Input.GetKeyDown(KeyCode.E)){
+					SwitchPrev ();
+				}
+				
+				if (Input.GetKeyDown (KeyCode.Space)) {
+					BreakGroup();		
+				}
 			}
 			
-			if (Input.GetKeyDown (KeyCode.Space)) {
-				BreakGroup();		
-			}
-		}
-
-		if (respawning) {
-			respawnCount -= Time.deltaTime;
-			if(respawnCount <= 0){
-				Respawn();
-				respawning = false;
+			if (respawning) {
+				respawnCount -= Time.deltaTime;
+				if(respawnCount <= 0){
+					Respawn();
+					respawning = false;
+				}
 			}
 		}
 	}
@@ -153,5 +157,15 @@ public class PlayerMaster : MonoBehaviour {
 			return characters[i - 1];
 	}
 
+	public void GameOver(){
+		gameover = true;
+		foreach (GameObject g in characters) {
+			g.GetComponent<PlayerControl>().enabled = false;		
+			g.GetComponent<FollowPlayer>().isMoving = false;		
+			g.GetComponent<PlayerControl>().move = Vector3.zero;
+
+			cam.GetComponent<LerpToTarget>().target = raft;
+		}
+	}
 
 }

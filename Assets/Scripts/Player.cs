@@ -8,6 +8,8 @@ public class Player : MonoBehaviour {
 
 	public GameObject currentText;
 
+	public bool onRaft;
+
 	// Particles
 	public GameObject dieParticle1, playerColorParticle, keyParticle;
 
@@ -99,5 +101,9 @@ public class Player : MonoBehaviour {
 			Destroy (col.gameObject);
 			Instantiate(keyParticle, transform.position, Quaternion.identity);
 		}
+	}
+
+	public void EnterRaft(){
+		onRaft = true;
 	}
 }

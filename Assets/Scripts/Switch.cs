@@ -5,7 +5,7 @@ public class Switch : MonoBehaviour {
 //	public enum TargetType { spike, door, spikeshooter, coloredpath }
 	public Vector3 origPos;
 	public bool state = false;
-	Transform child1;
+	public Transform child1;
 	
 	public GameObject[] target;
 
@@ -18,6 +18,6 @@ public class Switch : MonoBehaviour {
 		if(state)
 			child1.localPosition = new Vector3 (child1.localPosition.x, -0.07f, child1.localPosition.z);
 		else
-			child1.localPosition = new Vector3 (child1.localPosition.x, 0, child1.localPosition.z);;
+			child1.localPosition = new Vector3 (child1.localPosition.x, 0, child1.localPosition.z);
 	}
 }
