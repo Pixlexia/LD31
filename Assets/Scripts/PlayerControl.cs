@@ -28,12 +28,12 @@ public class PlayerControl : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 		if(col.gameObject.tag == "Stairs")
-			speed /= 2.5f;
+			speed /= 1.5f;
 	}
 
 	void OnTriggerExit2D(Collider2D col){
 		if(col.gameObject.tag == "Stairs")
-			speed *= 2.5f;
+			speed *= 1.5f;
 	}
 
 	public void Movement(){
