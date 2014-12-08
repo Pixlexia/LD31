@@ -26,7 +26,6 @@ public class SwitchHold : Switch {
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
-		state = true;
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			if(!steppers.Contains(col.gameObject)){
 				steppers.Add (col.gameObject);
@@ -34,9 +33,10 @@ public class SwitchHold : Switch {
 			foreach(GameObject go in target){
 				if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
 					go.GetComponent<Door>().Activate();
-					Debug.Log ("door");
+					state = true;
 				}
 				else if(go.GetComponent<SpikeShooter>() && col.gameObject.GetComponent<CanSwitchTraps>())
+					state = true;
 					go.GetComponent<SpikeShooter>().Activate();
 			}
 		}
