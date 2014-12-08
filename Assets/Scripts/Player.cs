@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
 	public float respawnTime, respawnCounter;
 	public bool isAlive;
 
+	public GameObject currentText;
+
 	// Particles
 	public GameObject dieParticle1, playerColorParticle, keyParticle;
 

@@ -17,18 +17,29 @@ public class SpeechTrigger : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.gameObject.GetComponent<Player> () && col.gameObject.GetComponent<Player> ().colortype == colortype) {
-			GameObject go = Instantiate (speechText, new Vector3 (col.transform.position.x,col.transform.position.y + 1,0), Quaternion.identity) as GameObject;
-			go.GetComponent<PositionUI> ().player = col.gameObject;
-			
-			go.gameObject.transform.localScale = Vector3.one;
-			
-			go.transform.parent = canvas.transform;
-			
-			go.GetComponent<DisplayTextAnim> ().text = text;
-			go.GetComponent<DisplayTextAnim> ().enabled = true;
-			
-			Destroy (gameObject);
+		Player p = null;
+
+		if (col.gameObject.GetComponent<Player>()) {
+			p = col.gameObject.GetComponent<Player>();
+
+			if (p.colortype == colortype) {
+				if(p.currentText != null){
+					Destroy(p.currentText);
+				}
+				GameObject go = Instantiate (speechText, new Vector3 (col.transform.position.x,col.transform.position.y + 1,0), Quaternion.identity) as GameObject;
+				go.GetComponent<PositionUI> ().player = col.gameObject;
+				
+				go.gameObject.transform.localScale = Vector3.one;
+				
+				go.transform.parent = canvas.transform;
+				
+				go.GetComponent<DisplayTextAnim> ().text = text;
+				go.GetComponent<DisplayTextAnim> ().enabled = true;
+				
+				p.currentText = go;
+				
+				Destroy (gameObject);
+			}
 		}
 	}
 }
