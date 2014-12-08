@@ -26,21 +26,22 @@ public class bodyMovement : MonoBehaviour {
 		{
 			StopAnimation();
 		}
+
+		//BODY
+		body.transform.localPosition = new Vector3(body.transform.localPosition.x, Mathf.PingPong(Time.time * bodyDur, bodyMax-bodyMin)+bodyMin, body.transform.localPosition.z);
 	}
 
 	public void MoveAnimation(){
 		//LEG
 		leftLeg.transform.rotation = rightLeg.transform.rotation = Quaternion.Euler(leftLeg.transform.localRotation.x, leftLeg.transform.localRotation.y,
 		                                                                            Mathf.PingPong(Time.time * legDur, legMax-legMin)+legMin);
-		//BODY
-		body.transform.localPosition = new Vector3(body.transform.localPosition.x, Mathf.PingPong(Time.time * bodyDur, bodyMax-bodyMin)+bodyMin, body.transform.localPosition.z);
 	}
 
 	public void StopAnimation(){
 		//LEG
 		leftLeg.transform.rotation = rightLeg.transform.rotation = transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(new Vector3(
 			leftLeg.transform.localRotation.x,leftLeg.transform.localRotation.y,0f)),1f);
-		//BODY
-		body.transform.localPosition = Vector3.Lerp(body.transform.localPosition,new Vector3(body.transform.localPosition.x,0f,body.transform.localPosition.z),1f);
+//		BODY
+//		body.transform.localPosition = Vector3.Lerp(body.transform.localPosition,new Vector3(body.transform.localPosition.x,0f,body.transform.localPosition.z),1f);
 	}
 }
