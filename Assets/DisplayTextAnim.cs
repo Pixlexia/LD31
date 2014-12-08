@@ -9,6 +9,7 @@ public class DisplayTextAnim : MonoBehaviour {
 	public float sentenceEnd;
 	public float pause;
 	public bool caps;
+	public float delayBeforeFadeOut;
 
 	float animSpeed;
 	string tempText;
@@ -55,8 +56,9 @@ public class DisplayTextAnim : MonoBehaviour {
 			gameObject.transform.GetComponent<Text>().text = tempText;
 			yield return new WaitForSeconds(animSpeed); 
 		} 
-		yield return new WaitForSeconds(1f); 
+		yield return new WaitForSeconds(delayBeforeFadeOut); 
 		textDone = true;
+		Destroy (gameObject, 3f);
 	}
 
 	void FadeOutText(){
