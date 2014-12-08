@@ -85,18 +85,29 @@ public class Enemy : MonoBehaviour {
 	void FollowPlayer(){
 		if (Vector3.Distance (transform.position, target.transform.position) > 5) {
 			// stop chasing if player is too far
-			followPlayer = false;
-			patroling = true;
-			target = targets[currentTarget];
-			speed = origSpeed;
-
-			eyebrows.SetActive(false);
+			StopChasing();
 		}
+	}
+
+	void StopChasing(){
+		followPlayer = false;
+		patroling = true;
+		target = targets[currentTarget];
+		speed = origSpeed;
+		
+		eyebrows.SetActive(false);
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Deadly") {
 			Die ();		
+		}
+	}
+
+	void OnCollisionEnter2D(Collision2D col){
+		if (col.gameObject.tag == "Player") {
+			col.gameObject.GetComponent<Player>().Die();	
+			StopChasing();
 		}
 	}
 

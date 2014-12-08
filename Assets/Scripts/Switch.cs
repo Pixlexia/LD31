@@ -9,7 +9,7 @@ public class Switch : MonoBehaviour {
 	
 	public GameObject[] target;
 
-	void Start(){
+	public virtual void Start(){
 		child1 = transform.GetChild (0);
 		origPos = transform.localPosition;
 	}

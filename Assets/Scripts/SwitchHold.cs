@@ -1,41 +1,65 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SwitchHold : Switch {
+
+	public List<GameObject> steppers;
+
+	public override void Start(){
+		steppers = new List<GameObject> ();
+		base.Start ();
+	}
 
 	void OnTriggerStay2D(Collider2D col){
 		state = true;
 
-		foreach (GameObject go in target) {
-			if(go.GetComponent<SpikeShooter>())
-				go.GetComponent<SpikeShooter>().Activate();
+		if (col.gameObject.GetComponent<CanSwitchTraps> ()) {
+			foreach (GameObject go in target) {
+				if(go.GetComponent<SpikeShooter>())
+					go.GetComponent<SpikeShooter>().Activate();
+				else if(go.GetComponent<Spike>()){
+					go.GetComponent<Spike>().Hold();
+				}
+			}
 		}
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
 		state = true;
-
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
+			if(!steppers.Contains(col.gameObject)){
+				steppers.Add (col.gameObject);
+			}
 			foreach(GameObject go in target){
-				if(go.GetComponent<Spike>())
-					go.GetComponent<Spike>().Activate();
-				else if(go.GetComponent<Door>())
+				if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
 					go.GetComponent<Door>().Activate();
-				else if(go.GetComponent<SpikeShooter>())
+					Debug.Log ("door");
+				}
+				else if(go.GetComponent<SpikeShooter>() && col.gameObject.GetComponent<CanSwitchTraps>())
 					go.GetComponent<SpikeShooter>().Activate();
 			}
 		}
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		state = false;
 
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
-			foreach(GameObject go in target){
-				if(go.GetComponent<Spike>())
-					go.GetComponent<Spike>().Deactivate();
-				else if(go.GetComponent<SpikeShooter>())
-					go.GetComponent<SpikeShooter>().Deactivate();
+			steppers.Remove(col.gameObject);
+
+			if(steppers.Count < 1){
+				state = false;
+				foreach(GameObject go in target){
+					if(col.gameObject.GetComponent<CanSwitchTraps>()){
+						if(go.GetComponent<Spike>())
+							go.GetComponent<Spike>().Off();
+						else if(go.GetComponent<SpikeShooter>())
+							go.GetComponent<SpikeShooter>().Deactivate();
+					}
+					else if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
+						go.GetComponent<Door>().Deactivate();
+					}
+				}
 			}
 		}
 	}
