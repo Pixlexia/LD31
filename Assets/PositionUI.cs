@@ -5,9 +5,10 @@ public class PositionUI : MonoBehaviour {
 
 	public GameObject player; 
 	public float yoffset;
+
 	// Use this for initialization
 	void Start () { 
-
+		transform.localScale = Vector3.one;
 	}
 	
 	// Update is called once per frame
