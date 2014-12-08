@@ -9,7 +9,7 @@ public class Projectile : MonoBehaviour {
 
 	void Start(){
 //		collider2D.enabled = false;
-		Destroy (gameObject, 3f);
+		Destroy (gameObject, 2f);
 
 		if (dir.x != 0) {
 			transform.Rotate(new Vector3(0,0,90));		
@@ -41,7 +41,7 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		if (col.gameObject.tag == "Wall")
+		if (col.gameObject.tag == "Wall" || col.gameObject.tag == "MapCollider")
 			canCollideWithWalls = true;
 	}
 }

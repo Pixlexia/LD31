@@ -35,9 +35,10 @@ public class SwitchHold : Switch {
 					go.GetComponent<Door>().Activate();
 					state = true;
 				}
-				else if(go.GetComponent<SpikeShooter>() && col.gameObject.GetComponent<CanSwitchTraps>())
+				else if(go.GetComponent<SpikeShooter>() && col.gameObject.GetComponent<CanSwitchTraps>()){
 					state = true;
 					go.GetComponent<SpikeShooter>().Activate();
+				}
 			}
 		}
 	}
@@ -47,18 +48,18 @@ public class SwitchHold : Switch {
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			steppers.Remove(col.gameObject);
 
-			if(steppers.Count < 1){
 				state = false;
-				foreach(GameObject go in target){
-					if(col.gameObject.GetComponent<CanSwitchTraps>()){
+			foreach(GameObject go in target){
+				if(col.gameObject.GetComponent<CanSwitchTraps>()){
+					if(steppers.Count < 1){
 						if(go.GetComponent<Spike>())
 							go.GetComponent<Spike>().Off();
 						else if(go.GetComponent<SpikeShooter>())
 							go.GetComponent<SpikeShooter>().Deactivate();
 					}
-					else if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
-						go.GetComponent<Door>().Deactivate();
-					}
+				}
+				else if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
+					go.GetComponent<Door>().Deactivate();
 				}
 			}
 		}
