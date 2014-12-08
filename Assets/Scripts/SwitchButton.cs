@@ -10,7 +10,7 @@ public class SwitchButton : Switch {
 			foreach(GameObject go in target){
 				if(go.GetComponent<Spike>())
 					Debug.Log ("Switch spike");
-				else if(go.GetComponent<Door>())
+				else if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>())
 					go.GetComponent<Door>().Activate();
 				else if(go.GetComponent<ColoredPath>())
 					go.GetComponent<ColoredPath>().Deactivate();

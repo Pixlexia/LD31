@@ -6,7 +6,7 @@ public class Unrescued : MonoBehaviour {
 	public CircleCollider2D b;
 
 	void OnTriggerEnter2D(Collider2D col){
-		if(col.gameObject.GetComponent<PlayerControl>()){
+		if(col.gameObject.GetComponent<Player>() && col.gameObject.GetComponent<PlayerControl>().enabled){
 			// character rescued
 			GameObject.Find ("_GM").GetComponent<PlayerMaster> ().characters.Add (gameObject);
 			GameObject.Find ("_GM").GetComponent<PlayerMaster> ().characters [0].GetComponent<FollowPlayer> ().target = gameObject;

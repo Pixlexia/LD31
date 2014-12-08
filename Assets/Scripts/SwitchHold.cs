@@ -14,11 +14,13 @@ public class SwitchHold : Switch {
 	void OnTriggerStay2D(Collider2D col){
 		state = true;
 
-		foreach (GameObject go in target) {
-			if(go.GetComponent<SpikeShooter>())
-				go.GetComponent<SpikeShooter>().Activate();
-			else if(go.GetComponent<Spike>()){
-				go.GetComponent<Spike>().Hold();
+		if (col.gameObject.GetComponent<CanSwitchTraps> ()) {
+			foreach (GameObject go in target) {
+				if(go.GetComponent<SpikeShooter>())
+					go.GetComponent<SpikeShooter>().Activate();
+				else if(go.GetComponent<Spike>()){
+					go.GetComponent<Spike>().Hold();
+				}
 			}
 		}
 	}
@@ -30,9 +32,11 @@ public class SwitchHold : Switch {
 				steppers.Add (col.gameObject);
 			}
 			foreach(GameObject go in target){
-				if(go.GetComponent<Door>())
+				if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
 					go.GetComponent<Door>().Activate();
-				else if(go.GetComponent<SpikeShooter>())
+					Debug.Log ("door");
+				}
+				else if(go.GetComponent<SpikeShooter>() && col.gameObject.GetComponent<CanSwitchTraps>())
 					go.GetComponent<SpikeShooter>().Activate();
 			}
 		}
@@ -46,10 +50,15 @@ public class SwitchHold : Switch {
 			if(steppers.Count < 1){
 				state = false;
 				foreach(GameObject go in target){
-					if(go.GetComponent<Spike>())
-						go.GetComponent<Spike>().Off();
-					else if(go.GetComponent<SpikeShooter>())
-						go.GetComponent<SpikeShooter>().Deactivate();
+					if(col.gameObject.GetComponent<CanSwitchTraps>()){
+						if(go.GetComponent<Spike>())
+							go.GetComponent<Spike>().Off();
+						else if(go.GetComponent<SpikeShooter>())
+							go.GetComponent<SpikeShooter>().Deactivate();
+					}
+					else if(col.gameObject.GetComponent<CanOpenDoors>() && go.GetComponent<Door>()){
+						go.GetComponent<Door>().Deactivate();
+					}
 				}
 			}
 		}

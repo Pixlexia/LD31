@@ -16,6 +16,7 @@ public class PlayerMaster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Physics2D.IgnoreLayerCollision (8, 8);
 		currentChar = 0;
 		isFollowing = true;
 	}

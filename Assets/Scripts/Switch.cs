@@ -15,8 +15,6 @@ public class Switch : MonoBehaviour {
 	}
 
 	void Update(){
-		Debug.Log ("asd");
-
 		if(state)
 			child1.localPosition = new Vector3 (child1.localPosition.x, -0.07f, child1.localPosition.z);
 		else
