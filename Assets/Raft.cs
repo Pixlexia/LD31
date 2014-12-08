@@ -23,8 +23,6 @@ public class Raft : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D col){
 		if (col.gameObject.tag == "Player"){
 			if(col.gameObject.GetComponent<Player>().colortype != ColoredPath.MyColor.blue) {
-				col.gameObject.GetComponent<Player>().EnterRaft();
-
 				col.transform.parent = transform;
 
 				count++;
@@ -36,7 +34,7 @@ public class Raft : MonoBehaviour {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		if (col.gameObject.tag == "Player" && col.gameObject.GetComponent<PlayerControl>().enabled && col.gameObject.GetComponent<Player>().colortype
+		if (col.gameObject.tag == "Player" && col.gameObject.GetComponent<Player>().colortype
 		    != ColoredPath.MyColor.blue) {
 			count--;
 		}

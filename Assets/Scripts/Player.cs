@@ -102,8 +102,4 @@ public class Player : MonoBehaviour {
 			Instantiate(keyParticle, transform.position, Quaternion.identity);
 		}
 	}
-
-	public void EnterRaft(){
-		onRaft = true;
-	}
 }

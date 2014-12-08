@@ -162,6 +162,7 @@ public class PlayerMaster : MonoBehaviour {
 		foreach (GameObject g in characters) {
 			g.GetComponent<PlayerControl>().enabled = false;		
 			g.GetComponent<FollowPlayer>().isMoving = false;		
+			g.GetComponent<FollowPlayer>().enabled = false;		
 			g.GetComponent<PlayerControl>().move = Vector3.zero;
 
 			cam.GetComponent<LerpToTarget>().target = raft;

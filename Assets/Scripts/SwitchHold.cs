@@ -44,11 +44,12 @@ public class SwitchHold : Switch {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
+		if(steppers.Count < 1)
+			state = false;
 
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			steppers.Remove(col.gameObject);
 
-				state = false;
 			foreach(GameObject go in target){
 				if(col.gameObject.GetComponent<CanSwitchTraps>()){
 					if(steppers.Count < 1){

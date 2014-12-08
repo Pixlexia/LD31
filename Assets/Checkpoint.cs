@@ -6,7 +6,7 @@ public class Checkpoint : MonoBehaviour {
 		if (col.gameObject.tag == "Player") {
 			if(col.gameObject.GetComponent<PlayerControl>().enabled){
 				GameObject.Find ("_GM").GetComponent<PlayerMaster>().SaveCheckpoint(gameObject);
-				GetComponent<SpriteRenderer> ().color = GameColors.colors["green"];
+//				GetComponent<SpriteRenderer> ().color = GameColors.colors["green"];
 			}
 
 		}
