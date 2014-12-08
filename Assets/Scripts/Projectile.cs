@@ -5,9 +5,10 @@ public class Projectile : MonoBehaviour {
 
 	public Vector3 dir;
 	public float speed;
+	public bool canCollideWithWalls = false;
 
 	void Start(){
-		collider2D.enabled = false;
+//		collider2D.enabled = false;
 		Destroy (gameObject, 3f);
 
 		if (dir.x != 0) {
@@ -18,7 +19,7 @@ public class Projectile : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.position += new Vector3 (dir.x * speed * Time.deltaTime, dir.y * speed * Time.deltaTime, 0);
-		StartCoroutine ("EnableCollider");
+//		StartCoroutine ("EnableCollider");
 	}
 
 	IEnumerator EnableCollider(){
@@ -27,9 +28,20 @@ public class Projectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D(Collider2D col){
-		if (col.gameObject.tag == "Player")
+		if (col.gameObject.tag == "Player") {
 			col.GetComponent<Player> ().Die ();
+			Destroy (this.gameObject);
+		}
+		else if(col.gameObject.tag == "Crate"){
+			Destroy(gameObject);
+		}
+		else if (canCollideWithWalls) {
+			Destroy (this.gameObject);
+		}
+	}
 
-		Destroy (this.gameObject);
+	void OnTriggerExit2D(Collider2D col){
+		if (col.gameObject.tag == "Wall")
+			canCollideWithWalls = true;
 	}
 }

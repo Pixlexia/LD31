@@ -9,12 +9,14 @@ public class Switch : MonoBehaviour {
 	
 	public GameObject[] target;
 
-	void Start(){
+	public virtual void Start(){
 		child1 = transform.GetChild (0);
 		origPos = transform.localPosition;
 	}
 
 	void Update(){
+		Debug.Log ("asd");
+
 		if(state)
 			child1.localPosition = new Vector3 (child1.localPosition.x, -0.07f, child1.localPosition.z);
 		else

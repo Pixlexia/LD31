@@ -1,7 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SwitchHold : Switch {
+
+	public List<GameObject> steppers;
+
+	public override void Start(){
+		steppers = new List<GameObject> ();
+		base.Start ();
+	}
 
 	void OnTriggerStay2D(Collider2D col){
 		state = true;
@@ -9,17 +17,20 @@ public class SwitchHold : Switch {
 		foreach (GameObject go in target) {
 			if(go.GetComponent<SpikeShooter>())
 				go.GetComponent<SpikeShooter>().Activate();
+			else if(go.GetComponent<Spike>()){
+				go.GetComponent<Spike>().Hold();
+			}
 		}
 	}
 	
 	void OnTriggerEnter2D(Collider2D col){
 		state = true;
-
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
+			if(!steppers.Contains(col.gameObject)){
+				steppers.Add (col.gameObject);
+			}
 			foreach(GameObject go in target){
-				if(go.GetComponent<Spike>())
-					go.GetComponent<Spike>().Activate();
-				else if(go.GetComponent<Door>())
+				if(go.GetComponent<Door>())
 					go.GetComponent<Door>().Activate();
 				else if(go.GetComponent<SpikeShooter>())
 					go.GetComponent<SpikeShooter>().Activate();
@@ -28,14 +39,18 @@ public class SwitchHold : Switch {
 	}
 
 	void OnTriggerExit2D(Collider2D col){
-		state = false;
 
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
-			foreach(GameObject go in target){
-				if(go.GetComponent<Spike>())
-					go.GetComponent<Spike>().Deactivate();
-				else if(go.GetComponent<SpikeShooter>())
-					go.GetComponent<SpikeShooter>().Deactivate();
+			steppers.Remove(col.gameObject);
+
+			if(steppers.Count < 1){
+				state = false;
+				foreach(GameObject go in target){
+					if(go.GetComponent<Spike>())
+						go.GetComponent<Spike>().Off();
+					else if(go.GetComponent<SpikeShooter>())
+						go.GetComponent<SpikeShooter>().Deactivate();
+				}
 			}
 		}
 	}

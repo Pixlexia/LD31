@@ -9,7 +9,7 @@ public class SwitchButton : Switch {
 		if (col.gameObject.tag == "Player" || col.gameObject.tag == "Crate") {
 			foreach(GameObject go in target){
 				if(go.GetComponent<Spike>())
-					go.GetComponent<Spike>().Switch(state);
+					Debug.Log ("Switch spike");
 				else if(go.GetComponent<Door>())
 					go.GetComponent<Door>().Activate();
 				else if(go.GetComponent<ColoredPath>())
